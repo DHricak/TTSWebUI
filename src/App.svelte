@@ -1,19 +1,29 @@
 <script lang="ts">
   import Card from "@comp/Card.svelte"
+  import { onMount } from "svelte";
 
-  let support = false;
+  
+ let support: boolean|undefined;
+ function loadSynth() {
   if ('speechSynthesis' in window && speechSynthesis.getVoices().length > 0) {
     support = true;
   }
-  console.log(speechSynthesis.getVoices())
+ }
+ speechSynthesis.getVoices();
+ setTimeout(loadSynth, 2000);
 </script>
 
+
 <main>
-  {#if support}
+  {#if support == true}
     <Card/>
-  {:else}
+  {:else if support == false}
     <div class="card">
       Sorry, your browser does not support Voice Synthesis.
+    </div>
+  {:else}
+    <div class="card">
+      <h2>Loading...</h2>
     </div>
   {/if}
   <iframe src="/TTSWebUI/dist/ghbtn.html" frameborder="0" width="220" height="40" id="gh"></iframe>
