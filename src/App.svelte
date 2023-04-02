@@ -7,6 +7,8 @@
  function loadSynth() {
   if ('speechSynthesis' in window && speechSynthesis.getVoices().length > 0) {
     support = true;
+  } else {
+    support = false;
   }
  }
  speechSynthesis.getVoices();
